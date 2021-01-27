@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  height: 100px;
+  width: 100%;
+  background-color: #e6e9f0;
+  box-shadow: -1px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.nav h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+}
+
+.userArea {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  padding: 10px;
+}
+
+.userArea span {
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 850px) {
+  .nav {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .nav {
+    width: 90%;
+  }
+}

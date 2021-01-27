@@ -1,5 +1,12 @@
+import styles from "./App.module.css";
+import Home from "../../pages/home";
+
 function App() {
-  return <h1>theTodoApp Project</h1>;
+  return (
+    <div className={styles.app}>
+      <Home />
+    </div>
+  );
 }
 
 export default App;
