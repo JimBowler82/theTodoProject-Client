@@ -10,9 +10,27 @@ function Home() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(formData);
+    const response = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/user/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    const { success, message } = await response.json();
+    if (success) {
+      // Activate a success message, proceed as logged in.
+      console.log("User has successfully registered!");
+    } else {
+      // display a error message
+      console.log(`Error: ${message}`);
+    }
   }
 
   return (
