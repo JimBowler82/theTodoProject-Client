@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
-import Header from "../../components/header";
+import Header from "../header";
 import { Button, Input } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-function Home() {
+export default function Register() {
   const [formData, setFormData] = useState({});
 
   function handleChange(e) {
@@ -41,6 +42,12 @@ function Home() {
           <div className={styles.welcomeDiv}>
             <h3>Welcome!</h3>
             <p>Register now for your own personal todo list!</p>
+            <p className={styles.loginLink}>
+              Already have an account?{" "}
+              <span>
+                <Link to="/login">Log In!</Link>
+              </span>
+            </p>
           </div>
           <div className={styles.registerDiv}>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -75,5 +82,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
