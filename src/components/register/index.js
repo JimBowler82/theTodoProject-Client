@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import Header from "../header";
+import AlertBox from "../alertBox";
 import { Button, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Register() {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -27,10 +30,12 @@ export default function Register() {
     const { success, message } = await response.json();
     if (success) {
       // Activate a success message, proceed as logged in.
-      console.log("User has successfully registered!");
+      if (error) setError(false);
+      setSuccess("You have successfully registered!");
     } else {
       // display a error message
-      console.log(`Error: ${message}`);
+      if (success) setSuccess(false);
+      setError(message);
     }
   }
 
@@ -38,6 +43,22 @@ export default function Register() {
     <>
       <Header />
       <main className={styles.main}>
+        {error && (
+          <AlertBox
+            type="error"
+            title="Error!"
+            message={error}
+            close={setError}
+          />
+        )}
+        {success && (
+          <AlertBox
+            type="success"
+            title="Success!"
+            message={success}
+            close={setSuccess}
+          />
+        )}
         <div className={styles.welcomeContainer}>
           <div className={styles.welcomeDiv}>
             <h3>Welcome!</h3>
