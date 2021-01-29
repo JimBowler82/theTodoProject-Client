@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import Header from "../header";
+import AlertBox from "../alertBox";
 import { Button, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -24,13 +27,16 @@ export default function Login() {
         body: JSON.stringify(formData),
       }
     );
-    const { success, message } = await response.json();
+    const { success, message, token } = await response.json();
     if (success) {
       // Activate a success message, proceed as logged in.
-      console.log("User has successfully logged in!");
+      console.log(response.headers.get("auth-token"));
+      if (error) setError(false);
+      setSuccess(message);
     } else {
       // display a error message
-      console.log(`Error: ${message}`);
+      if (success) setSuccess(false);
+      setError(message);
     }
   }
 
@@ -38,6 +44,22 @@ export default function Login() {
     <>
       <Header />
       <main className={styles.main}>
+        {error && (
+          <AlertBox
+            type="error"
+            title="Error!"
+            message={error}
+            close={setError}
+          />
+        )}
+        {success && (
+          <AlertBox
+            type="success"
+            title="Success!"
+            message={success}
+            close={setSuccess}
+          />
+        )}
         <div className={styles.welcomeContainer}>
           <div className={styles.welcomeDiv}>
             <h3>Welcome!</h3>
