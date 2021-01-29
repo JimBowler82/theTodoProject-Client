@@ -1,0 +1,78 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+.welcomeContainer {
+  display: flex;
+  width: 650px;
+  height: 350px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: -1px 3px 8px 3px rgba(0, 0, 0, 0.4);
+}
+
+.welcomeDiv,
+.registerDiv {
+  width: 50%;
+  height: 100%;
+  padding: 15px;
+}
+
+.welcomeDiv {
+  border-right: 1px solid gray;
+}
+
+.welcomeDiv > * {
+  margin-top: 30px;
+}
+
+.welcomeDiv h3 {
+  font-size: 3rem;
+}
+
+.regLink {
+  font-size: 0.8rem;
+}
+
+.regLink > span {
+  color: rgb(25, 107, 189);
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  padding-left: 5px;
+}
+
+.registerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.registerDiv form > * {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 690px) {
+  .welcomeContainer {
+    flex-direction: column;
+    width: 80%;
+    min-width: 450px;
+    height: 550px;
+    align-items: center;
+  }
+  .welcomeDiv {
+    height: 40%;
+    width: 80%;
+    border-right: none;
+    border-bottom: 1px solid gray;
+  }
+  .registerDiv {
+    height: 60%;
+    width: 80%;
+  }
+}

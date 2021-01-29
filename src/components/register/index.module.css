@@ -36,6 +36,17 @@
   font-size: 3rem;
 }
 
+.loginLink {
+  font-size: 0.8rem;
+}
+
+.loginLink > span {
+  color: rgb(25, 107, 189);
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  padding-left: 5px;
+}
+
 .registerDiv {
   display: flex;
   flex-direction: column;
