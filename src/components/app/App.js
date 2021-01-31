@@ -13,6 +13,7 @@ function App() {
           <PrivateRoute exact path="/" component={TodoList} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/todoList" component={TodoList} />
         </Switch>
       </div>
     </Router>
