@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+
 .header {
   display: flex;
   justify-content: center;
@@ -16,15 +18,15 @@
   width: 60%;
 }
 
-.nav h1 {
-  font-family: Arial, Helvetica, sans-serif;
+.h1 {
+  font-family: "Yusei Magic", sans-serif;
   font-size: 2rem;
 }
 
 .userArea {
   display: flex;
   align-items: center;
-  width: 200px;
+  width: 250px;
   padding: 10px;
 }
 

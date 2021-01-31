@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import Header from "../header";
 import AlertBox from "../alertBox";
 import { Button, Input } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useAuthContext } from "../../context/authContext";
 
 export default function Login() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
+  const { user, setAuth } = useAuthContext();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user.id) {
+      history.push("/todoList");
+    }
+  }, [user]);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -27,12 +36,15 @@ export default function Login() {
         body: JSON.stringify(formData),
       }
     );
-    const { success, message, token } = await response.json();
+    const { success, message, token, user } = await response.json();
     if (success) {
       // Activate a success message, proceed as logged in.
       console.log(response.headers.get("auth-token"));
+      localStorage.setItem("token", token);
+      setAuth({ type: "login", payload: user });
       if (error) setError(false);
       setSuccess(message);
+      history.push("/todoList");
     } else {
       // display a error message
       if (success) setSuccess(false);
