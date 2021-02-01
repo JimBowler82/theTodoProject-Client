@@ -1,6 +1,81 @@
 .main {
-  margin-top: 120px;
+  padding-top: 120px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+.container {
+  width: 40%;
+  min-width: 400px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0px 4px 7px 2px rgba(0, 0, 0, 0.6);
+}
+
+.addTodoDiv {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-bottom: 1px solid gray;
+}
+
+.date {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.8rem;
+}
+
+.date p:first-child {
+  font-size: 3rem;
+}
+
+.input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+  align-self: center;
+}
+
+.todoListDiv {
+  padding: 20px;
+}
+
+.listItem {
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #999;
+}
+
+.todoDetails {
+  width: 80%;
+  margin: 5px;
+}
+
+.todoDetails p:nth-child(2) {
+  font-size: 0.7rem;
+}
+
+.iconBtns {
+  display: flex;
+  width: 20%;
+}
+
+.iconBtns span {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  margin: 5px;
+}
+
+.devInfo {
+  width: 40%;
+  min-width: 400px;
+  overflow-x: scroll;
 }

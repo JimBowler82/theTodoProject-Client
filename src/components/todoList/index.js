@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/authContext";
 import { useHistory } from "react-router-dom";
-import { Button, Spinner, StylesProvider } from "@chakra-ui/react";
+import { Button, Spinner, Input } from "@chakra-ui/react";
+import moment from "moment";
 import Header from "../header";
 import styles from "./index.module.css";
+import { listData } from "./data";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 
 export default function TodoList() {
   const [todos, setTodos] = useState(["none"]);
@@ -38,6 +41,49 @@ export default function TodoList() {
     <>
       <Header />
       <main className={styles.main}>
+        <div className={styles.container}>
+          <div className={styles.addTodoDiv}>
+            <div className={styles.date}>
+              <p>{moment().format("dddd")}</p>
+              <p>{moment().format("Do MMMM YYYY")}</p>
+            </div>
+            <div className={styles.input}>
+              <Input
+                placeholder="Enter a todo"
+                style={{
+                  borderTopRightRadius: "0",
+                  borderBottomRightRadius: "0",
+                  borderColor: "#999",
+                }}
+              />
+              <Button
+                colorScheme="teal"
+                style={{
+                  borderTopLeftRadius: "0",
+                  borderBottomLeftRadius: "0",
+                }}
+              >
+                Add To List
+              </Button>
+            </div>
+          </div>
+          <div className={styles.todoListDiv}>
+            {listData.map((item, i) => {
+              return (
+                <div key={i} className={styles.listItem}>
+                  <div className={styles.todoDetails}>
+                    <p>{item.content}</p>
+                    <p>Completed: {item.completed ? "✔️" : "❌"}</p>
+                  </div>
+                  <div className={styles.iconBtns}>
+                    <span>{<BsPencilSquare />}</span>
+                    <span>{<BsTrash />}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         {!user.id && (
           <Spinner
             thickness="4px"
@@ -48,10 +94,8 @@ export default function TodoList() {
           />
         )}
         {user.id && (
-          <div>
-            <h1>Here is your todolist!</h1>
+          <div className={styles.devInfo}>
             <pre>{JSON.stringify(user)}</pre>
-            <p>{todos || "no todos"}</p>
             <Button colorScheme="red" size="sm" onClick={logout}>
               Log Out
             </Button>
