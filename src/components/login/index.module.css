@@ -66,13 +66,13 @@
     align-items: center;
   }
   .welcomeDiv {
-    height: 40%;
+    height: 45%;
     width: 80%;
     border-right: none;
     border-bottom: 1px solid gray;
   }
   .registerDiv {
-    height: 60%;
+    height: 55%;
     width: 80%;
   }
 }
