@@ -9,7 +9,7 @@ import { Button, Spinner, Input } from "@chakra-ui/react";
 import { listData } from "./data";
 
 export default function TodoList() {
-  const [todos, setTodos] = useState(listData);
+  const [todos, setTodos] = useState([]);
   const [todoText, setTodoText] = useState("");
   const { user, setAuth } = useAuthContext();
   const history = useHistory();
@@ -27,7 +27,7 @@ export default function TodoList() {
         if (!result.success) {
           return logout();
         }
-        //setTodos(["Todos from DB"]);
+        setTodos(result.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -36,12 +36,36 @@ export default function TodoList() {
     setTodoText(e.target.value);
   }
 
-  function addTodo() {
+  async function addTodo() {
     if (!todoText) return;
-    setTodos([
+    const newTodoList = [
       ...todos,
       { content: todoText, completed: false, date: moment().format() },
-    ]);
+    ];
+
+    try {
+      const data = { data: newTodoList };
+      const response = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/todos",
+        {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        console.log("Added new todo to db");
+        setTodos(newTodoList);
+      } else {
+        console.log(`Failed to add todo to db: ${result.message}`);
+      }
+    } catch (err) {
+      console.log(`Error with POST fetch: ${err}`);
+    }
     setTodoText("");
   }
 
