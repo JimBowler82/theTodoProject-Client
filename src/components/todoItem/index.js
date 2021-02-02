@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from "moment";
 import styles from "./index.module.css";
 import { Checkbox, Tooltip, Input } from "@chakra-ui/react";
 import { BsCheckBox, BsPencilSquare, BsTrash } from "react-icons/bs";
@@ -31,11 +32,12 @@ export default function TodoItem({ item, i, del, update, toggle }) {
             size="xs"
             type="text"
             value={updatedTodo}
+            autoFocus
             onChange={(e) => setUpdatedTodo(e.target.value)}
           />
         )}
         <p>
-          <em>Today at 08:00am</em>
+          <em>{moment(item.date).fromNow()}</em>
         </p>
       </div>
       <div className={styles.iconBtns}>

@@ -32,19 +32,16 @@ export default function TodoList() {
       .catch((err) => console.log(err));
   }, []);
 
-  function logout() {
-    localStorage.setItem("token", "");
-    setAuth({ type: "logout" });
-    history.push("/login");
-  }
-
   function handleChange(e) {
     setTodoText(e.target.value);
   }
 
   function addTodo() {
     if (!todoText) return;
-    setTodos([...todos, { content: todoText, completed: false }]);
+    setTodos([
+      ...todos,
+      { content: todoText, completed: false, date: moment().format() },
+    ]);
     setTodoText("");
   }
 
@@ -68,6 +65,12 @@ export default function TodoList() {
       { ...todos[index], completed: !todos[index].completed },
       ...todos.slice(index + 1),
     ]);
+  }
+
+  function logout() {
+    localStorage.setItem("token", "");
+    setAuth({ type: "logout" });
+    history.push("/login");
   }
 
   return (
