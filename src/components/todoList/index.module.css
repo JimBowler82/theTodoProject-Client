@@ -45,35 +45,6 @@
   padding: 20px;
 }
 
-.listItem {
-  display: flex;
-  margin-bottom: 10px;
-  border: 1px solid #999;
-}
-
-.todoDetails {
-  width: 80%;
-  margin: 5px;
-}
-
-.todoDetails p:nth-child(2) {
-  font-size: 0.7rem;
-}
-
-.iconBtns {
-  display: flex;
-  width: 20%;
-}
-
-.iconBtns span {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.4rem;
-  margin: 5px;
-}
-
 .devInfo {
   width: 40%;
   min-width: 400px;

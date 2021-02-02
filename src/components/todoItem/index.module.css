@@ -1,0 +1,40 @@
+.listItem {
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #999;
+}
+
+.checkbox {
+  margin-left: 10px;
+}
+
+.todoDetails {
+  width: 80%;
+  margin: 10px;
+}
+
+.todoDetails p:nth-child(2) {
+  font-size: 0.7rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.iconBtns {
+  display: flex;
+  width: 20%;
+  justify-content: space-evenly;
+}
+
+.iconBtns span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-size: 1.4rem;
+}
+
+.iconBtns span:hover {
+  cursor: pointer;
+}
