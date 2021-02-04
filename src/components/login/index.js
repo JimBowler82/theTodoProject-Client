@@ -39,7 +39,6 @@ export default function Login() {
     const { success, message, token, user } = await response.json();
     if (success) {
       // Activate a success message, proceed as logged in.
-      console.log(response.headers.get("auth-token"));
       localStorage.setItem("token", token);
       setAuth({ type: "login", payload: user });
       if (error) setError(false);

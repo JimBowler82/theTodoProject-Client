@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 import { Checkbox, Tooltip, Input } from "@chakra-ui/react";
 import { BsCheckBox, BsPencilSquare, BsTrash } from "react-icons/bs";
 
-export default function TodoItem({ item, i, del, update, toggle }) {
+export default function TodoItem({ item, del, update, toggle }) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updatedTodo, setUpdatedTodo] = useState(item.content);
 
@@ -12,16 +12,16 @@ export default function TodoItem({ item, i, del, update, toggle }) {
     if (mode) {
       setIsUpdating(mode);
     } else {
-      update(updatedTodo, i);
+      update(updatedTodo, item._id);
       setIsUpdating(false);
     }
   }
 
   return (
-    <div key={i} className={styles.listItem} onChange={() => toggle(i)}>
+    <div className={styles.listItem} onChange={() => toggle(item._id)}>
       <Checkbox colorScheme="green" className={styles.checkbox} />
 
-      <div className={styles.todoDetails}>
+      <div key={item._id} className={styles.todoDetails}>
         {!isUpdating && (
           <p className={item.completed ? styles.completed : ""}>
             {item.content}
@@ -58,7 +58,7 @@ export default function TodoItem({ item, i, del, update, toggle }) {
 
         <Tooltip label="Delete Todo" hasArrow>
           <span>
-            <BsTrash onClick={() => del(i)} />
+            <BsTrash onClick={() => del(item._id)} />
           </span>
         </Tooltip>
       </div>

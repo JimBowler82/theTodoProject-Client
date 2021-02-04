@@ -1,4 +1,3 @@
-import styles from "./App.module.css";
 import Register from "../register";
 import Login from "../login";
 import TodoList from "../todoList";
