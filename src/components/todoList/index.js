@@ -59,6 +59,7 @@ export default function TodoList() {
       const result = await response.json();
       if (result.success) {
         console.log("Added new todo to db");
+        console.log("data returned", result.data);
         setTodos(newTodoList);
       } else {
         console.log(`Failed to add todo to db: ${result.message}`);
@@ -69,26 +70,107 @@ export default function TodoList() {
     setTodoText("");
   }
 
-  function deleteTodo(index) {
-    console.log("delete todo", index);
-    setTodos([...todos.slice(0, index), ...todos.slice(index + 1)]);
+  async function deleteTodo(id) {
+    const index = todos.findIndex((todo) => todo._id === id);
+    if (index === -1) return;
+
+    const newTodoList = [...todos.slice(0, index), ...todos.slice(index + 1)];
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/todos/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        console.log("Deleted todo from db");
+        setTodos(newTodoList);
+      } else {
+        console.log(`Failed to delete todo from db: ${result.message}`);
+      }
+    } catch (err) {
+      console.log(`Error with DELETE fetch: ${err}`);
+    }
   }
 
-  function updateTodo(text, index) {
-    setTodos([
-      ...todos.slice(0, index),
-      { ...todos[index], content: text },
-      ...todos.slice(index + 1),
-    ]);
+  async function updateTodo(text, id) {
+    const index = todos.findIndex((todo) => todo._id === id);
+    if (index === -1) return;
+
+    const updatedTodo = { ...todos[index], content: text };
+
+    try {
+      const data = { data: updatedTodo };
+      console.log({ data });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/todos/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        console.log("Updated todo in db");
+        console.log("data returned", result.data);
+        setTodos([
+          ...todos.slice(0, index),
+          updatedTodo,
+          ...todos.slice(index + 1),
+        ]);
+      } else {
+        console.log(`Failed to update todo in db: ${result.message}`);
+      }
+    } catch (err) {
+      console.log(`Error with PATCH fetch: ${err}`);
+    }
   }
 
-  function toggleCompleted(index) {
-    console.log("toggle", index);
-    setTodos([
-      ...todos.slice(0, index),
-      { ...todos[index], completed: !todos[index].completed },
-      ...todos.slice(index + 1),
-    ]);
+  async function toggleCompleted(id) {
+    console.log("toggle", id);
+    const index = todos.findIndex((todo) => todo._id === id);
+    if (index === -1) return;
+
+    const toggledTodo = { ...todos[index], completed: !todos[index].completed };
+
+    try {
+      const data = { data: toggledTodo };
+      console.log({ data });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/todos/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        console.log("Toggled todo in db");
+        console.log("data returned", result.data);
+        setTodos([
+          ...todos.slice(0, index),
+          toggledTodo,
+          ...todos.slice(index + 1),
+        ]);
+      } else {
+        console.log(`Failed to toggle todo in db: ${result.message}`);
+      }
+    } catch (err) {
+      console.log(`Error with PATCH fetch: ${err}`);
+    }
   }
 
   function logout() {
@@ -134,9 +216,8 @@ export default function TodoList() {
             {todos.map((item, i) => {
               return (
                 <TodoItem
-                  key={i}
+                  key={item._id}
                   item={item}
-                  i={i}
                   del={deleteTodo}
                   update={updateTodo}
                   toggle={toggleCompleted}
