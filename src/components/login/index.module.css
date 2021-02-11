@@ -9,6 +9,7 @@
 }
 
 .welcomeContainer {
+  position: relative;
   display: flex;
   width: 650px;
   height: 350px;
