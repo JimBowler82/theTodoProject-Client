@@ -235,14 +235,6 @@ export default function TodoList() {
             size="xl"
           />
         )}
-        {user.id && (
-          <div className={styles.devInfo}>
-            <pre>{JSON.stringify(user)}</pre>
-            <Button colorScheme="red" size="sm" onClick={logout}>
-              Log Out
-            </Button>
-          </div>
-        )}
       </main>
     </>
   );

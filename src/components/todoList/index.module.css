@@ -1,10 +1,12 @@
 .main {
   padding-top: 120px;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  background-size: cover;
 }
 
 .container {

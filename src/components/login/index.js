@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import Header from "../header";
 import AlertBox from "../alertBox";
+import LoadingSpinner from "../loadingSpinner";
 import { Button, Input } from "@chakra-ui/react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuthContext } from "../../context/authContext";
@@ -10,6 +11,7 @@ export default function Login() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
+  const [loading, setLoading] = useState(false);
   const { user, setAuth } = useAuthContext();
   const history = useHistory();
 
@@ -25,6 +27,7 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     console.log(formData);
     const response = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/user/login`,
@@ -43,11 +46,13 @@ export default function Login() {
       setAuth({ type: "login", payload: user });
       if (error) setError(false);
       setSuccess(message);
+      setLoading(false);
       history.push("/todoList");
     } else {
       // display a error message
       if (success) setSuccess(false);
       setError(message);
+      setLoading(false);
     }
   }
 
@@ -72,6 +77,7 @@ export default function Login() {
           />
         )}
         <div className={styles.welcomeContainer}>
+          {loading && <LoadingSpinner />}
           <div className={styles.welcomeDiv}>
             <h3>Welcome!</h3>
             <p>Log in now to access your todo list!</p>
@@ -98,7 +104,11 @@ export default function Login() {
                 size="md"
                 onChange={(e) => handleChange(e)}
               />
-              <Button type="submit" colorScheme="green">
+              <Button
+                type="submit"
+                colorScheme="green"
+                disabled={loading ? true : false}
+              >
                 Log In
               </Button>
             </form>
