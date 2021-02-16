@@ -15,3 +15,14 @@ The repo for the back end of this project can be found [here](https://github.com
 
 **--Site in production--**
 [Click to view live](https://optimistic-pasteur-c3a5de.netlify.app/)
+
+To try it out log in with:
+
+- guest@admin.com
+- admin123
+
+### Screenshots
+
+<img src='./screenshots/screenshot-1.png' width='500px'>
+<img src='./screenshots/screenshot-2.png' width='500px'>
+<img src='./screenshots/screenshot-3.png' width='500px'>
